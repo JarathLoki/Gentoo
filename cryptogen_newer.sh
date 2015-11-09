@@ -265,11 +265,11 @@ function SetupCryptRoot() {
   sleep 3
 
   ## Creating Filesystem on $MAPPERROOT  ##changed from mkfs.ext3
-  mkfs.ext4 -j -m 1 $MAPPERROOT 2>$LOGFILE \
+  mkfs.ext3 -j -m 1 $MAPPERROOT 2>$LOGFILE \
   || GracefulExit 3 "mkfs.ext3 failed."
 
   ## Mounting to $NEWROOT  #Same as above, now ext4 rather than 3.
-  (mount -t ext4 $MAPPERROOT $NEWROOT 2>$LOGFILE) \ 
+  (mount -t ext3 $MAPPERROOT $NEWROOT 2>$LOGFILE) \ 
   | dialog --infobox "Mounting root on $NEWROOT" 3 50
   test "$(mount|grep $MAPPERROOT)" == "" && GracefulExit 3 "Mounting failed."
 
