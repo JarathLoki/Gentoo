@@ -284,7 +284,7 @@ function DownloadBase() {
   MIRROR=${MIRRORS[0]}
   AUTOBUILDS="$MIRROR""releases/$ARCH/autobuilds/"
   LATEST_PORTAGE="$MIRROR""releases/snapshots/current/portage-latest.tar.bz2"
-  LATEST_STAGE3=$(links -source $AUTOBUILDS/latest-stage3-amd64-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
+  LATEST_STAGE3=$(links -source $AUTOBUILDS/latest-stage3-i686-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
   # Changed from AUTOBUILDS/latest-stage3.txt
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
