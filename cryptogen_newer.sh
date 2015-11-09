@@ -277,27 +277,20 @@ function SetupCryptRoot() {
   echo -n > $LOGFILE
 }
 
-function DownloadBase() {
-  ## Download stage 3 and latest portage and unpack it.
-  MIRRORS=( $GENTOO_MIRRORS )
-  # TODO: Pick a mirror with best response time.
-  #AUTOBUILDS= "$MIRROR""releases/$ARCH/autobuilds/"
-  MIRROR=${MIRRORS[0]}
-  AUTOBUILDS="$MIRROR""releases/x86/autobuilds/"
-  LATEST_PORTAGE="$MIRROR""releases/snapshots/current/portage-latest.tar.bz2"
-  LATEST_STAGE3=$(curl -s $AUTOBUILDS/latest-stage3-i686-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
-  # Changed from AUTOBUILDS/latest-stage3.txt
-  # changed from LATEST-STAGE3$(blah....) links -source to curl -s "${MIRROR}/releases/
-  # Downloading latest stage3.
-  # TODO: Check .DIGESTS file.
-  wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
-  # Unpacking stage3.
+
+function DownloadBASE() {
+MIRRORS=($GENTOO_MIRRORS)
+MIRROR=${MIRRORS[0]}
+AUTOBUILDS=$(curl -s "${MIRROR}/releases/x86/autobuilds/latest-stage3-i686-hardened.txt" | awk '/stage3/ { print $1 }')
+LATEST_PORTAGE=$(curl -s "${MIRROR}/snapshots/portage-latest.tar.bz2" | awk '/portage-latest/ {print $1}')
+
+wget -P $NEWROOT "$AUTOBUILDS"
+# Unpacking stage3.
   tar xvjpf $NEWROOT/stage3-*.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
   mount -t proc none $NEWROOT/proc
   mount -o bind /dev $NEWROOT/dev
   cp /etc/resolv.conf $NEWROOT/etc/resolv.conf
-
   # Downloading latest portage.
   wget -P $NEWROOT "$LATEST_PORTAGE"
   wget -P $NEWROOT "$LATEST_PORTAGE".md5sum
@@ -441,7 +434,7 @@ function Main() {
   ## Cryptformat $ROOT and luksOpen it.
   SetupCryptRoot
   ## Download stage 3 and latest portage and unpack it.
-  DownloadBase
+  DownloadBASE
   ## Set up basic files.
   BaseSetup
   ## Install the bootloader
