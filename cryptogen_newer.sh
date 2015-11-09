@@ -266,7 +266,7 @@ function SetupCryptRoot() {
 
   ## Creating Filesystem on $MAPPERROOT
   mkfs.ext4 -j -m 1 $MAPPERROOT 2>$LOGFILE \
-  || GracefulExit 3 "mkfs.ext3 failed."
+  || GracefulExit 3 "mkfs.ext4 failed."
 
   ## Mounting to $NEWROOT
   (mount -t ext4 $MAPPERROOT $NEWROOT 2>$LOGFILE) \
@@ -292,7 +292,7 @@ function DownloadBase() {
   # TODO: Check .DIGESTS file.
   wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
   # Unpacking stage3.
-  tar xjpf $NEWROOT/stage3-*.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
+  tar xvjpf $NEWROOT/stage3-*.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
   mount -t proc none $NEWROOT/proc
   mount -o bind /dev $NEWROOT/dev
