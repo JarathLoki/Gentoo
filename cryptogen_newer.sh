@@ -281,11 +281,13 @@ function DownloadBase() {
   ## Download stage 3 and latest portage and unpack it.
   MIRRORS=( $GENTOO_MIRRORS )
   # TODO: Pick a mirror with best response time.
+  #AUTOBUILDS= "$MIRROR""releases/$ARCH/autobuilds/"
   MIRROR=${MIRRORS[0]}
-  AUTOBUILDS="$MIRROR""releases/$ARCH/autobuilds/"
+  AUTOBUILDS="$MIRROR""releases/x86/autobuilds/"
   LATEST_PORTAGE="$MIRROR""releases/snapshots/current/portage-latest.tar.bz2"
-  LATEST_STAGE3=$(links -source $AUTOBUILDS/latest-stage3-i686-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
+  LATEST_STAGE3=$(curl -s $AUTOBUILDS/latest-stage3-i686-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
   # Changed from AUTOBUILDS/latest-stage3.txt
+  # changed from LATEST-STAGE3$(blah....) links -source to curl -s "${MIRROR}/releases/
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
   wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
