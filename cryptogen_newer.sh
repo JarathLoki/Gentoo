@@ -3,6 +3,7 @@
 #  Encrypted Gentoo Installator | 2009 by oozie | http://blog.ooz.ie/
 #  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
+#####YO, /mnt/gentoo ISN'T BEING MADE!!!!
 LICENSE="Copyright (C) 2009 by Slawek Ligus. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -420,6 +421,8 @@ _EOF_
 function Main() {
   # Main function.
   test "$UID" -eq "0" || GracefulExit 2 "Only root can run this proram."
+  #Make gentoo first
+  mkdir /mnt/gentoo
 
   # Intruduce.
   Intro
