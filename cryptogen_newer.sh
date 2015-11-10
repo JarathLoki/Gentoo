@@ -285,14 +285,14 @@ function DownloadBase() {
   MIRROR=${MIRRORS[0]}
   AUTOBUILDS="$MIRROR""releases/$ARCH/autobuilds/"
   LATEST_PORTAGE="$MIRROR""releases/snapshots/current/portage-latest.tar.bz2"
-  LATEST_STAGE3=$(curl -s $AUTOBUILDS/latest-stage3-amd64-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
+  LATEST_STAGE3=$(links -source $AUTOBUILDS/latest-stage3-amd64-hardened.txt | egrep "^20[0-9]{6}/stage3-$(arch)")
   # Changed from AUTOBUILDS/latest-stage3.txt
   # changed from LATEST-STAGE3$(blah....) links -source to curl -s "${MIRROR}/releases/
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
   wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
   # Unpacking stage3.
-  tar xvjpf $NEWROOT/stage3-*.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
+  tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
   mount -t proc none $NEWROOT/proc
   mount -o bind /dev $NEWROOT/dev
