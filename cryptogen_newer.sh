@@ -2,6 +2,7 @@
 #
 #  Encrypted Gentoo Installator | 2009 by oozie | http://blog.ooz.ie/
 #  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Modified for modern Gentoo systems by Jarath Loki c.2015
 #
 #####YO, /mnt/gentoo ISN'T BEING MADE!!!!
 LICENSE="Copyright (C) 2009 by Slawek Ligus. All rights reserved.
@@ -102,6 +103,13 @@ function Intro() {
   # License.
   # Quit if the user rejects the terms.
   ShowLicense || GracefulExit 1
+}
+
+function Directories() {
+  #Make the directories as it clearly wasn't working now
+  mkdir /mnt/gentoo
+  mkdir /mnt/gentoo/proc
+  mkdir /mnt/gentoo/dev
 }
 
 function AskHowToPartition() {
@@ -348,7 +356,7 @@ emerge --sync --quiet
 echo "[*] Setting clock to GMT..."
 cp /usr/share/zoneinfo/GMT /etc/localtime
 echo "[*] Downloading kernel sources..."
-emerge gentoo-sources genkernel udev device-mapper grub
+emerge gentoo-sources genkernel eudev device-mapper grub
 USE="-dynamic" emerge cryptsetup
 emerge ${OTHER_EBUILDS[@]}
 echo "[*] Applying current kernel config."
@@ -421,12 +429,9 @@ _EOF_
 function Main() {
   # Main function.
   test "$UID" -eq "0" || GracefulExit 2 "Only root can run this program."
-  #Make /mnt/gentoo /mnt/gentoo/proc and /mnt/gentoo/dev
-  mkdir /mnt/gentoo
-  mkdir /mnt/gentoo/proc
-  mkdir /mnt/gentoo/dev
-
-  # Intruduce.
+  #Make /mnt/gentoo /mnt/gentoo/proc and /mnt/gentoo/dev Make the directories function
+  Directories
+  # Introduce.
   Intro
   # Prompt the user on how to proceed.
   AskHowToPartition 2>$OUTPUT
