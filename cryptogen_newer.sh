@@ -420,9 +420,11 @@ _EOF_
 
 function Main() {
   # Main function.
-  test "$UID" -eq "0" || GracefulExit 2 "Only root can run this proram."
-  #Make gentoo first
+  test "$UID" -eq "0" || GracefulExit 2 "Only root can run this program."
+  #Make /mnt/gentoo /mnt/gentoo/proc and /mnt/gentoo/dev
   mkdir /mnt/gentoo
+  mkdir /mnt/gentoo/proc
+  mkdir /mnt/gentoo/dev
 
   # Intruduce.
   Intro
