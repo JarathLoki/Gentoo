@@ -300,8 +300,8 @@ function DownloadBase() {
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
   wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
-  # Unpacking stage3.
-  tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
+  # Unpacking stage3. Call the shell to try to untar the unit
+  /bin/sh -c tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
   mount -t proc none $NEWROOT/proc
   mount -o bind /dev $NEWROOT/dev
