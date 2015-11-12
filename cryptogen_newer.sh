@@ -299,9 +299,11 @@ function DownloadBase() {
   # changed from LATEST-STAGE3$(blah....) links -source to curl -s "${MIRROR}/releases/
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
-  wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
+  #wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
+  wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151105.tar.bz2
   # Unpacking stage3. Call the shell to try to untar the unit
-  /bin/sh -c tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
+  #/bin/sh -c tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
+  tar xvjpf $NEWROOT/stage3-amd64-hardened-20151105.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
   mount -t proc none $NEWROOT/proc
   mount -o bind /dev $NEWROOT/dev
