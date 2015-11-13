@@ -300,10 +300,10 @@ function DownloadBase() {
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
   #wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
-  wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151105.tar.bz2
+  wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
   # Unpacking stage3. Call the shell to try to untar the unit
   #/bin/sh -c tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
-  tar xvjpf /mnt/gentoo/stage3-amd64-hardened-20151105.tar.bz2 -C /mnt/gentoo | dialog --infobox "Unpacking stage3..." 3 30
+  tar xvjpf /mnt/gentoo/stage3-amd64-hardened-20151112.tar.bz2 -C /mnt/gentoo | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
   mount -t proc none /mnt/gentoo/proc
   mount -o bind /dev /mnt/gentoo/dev
