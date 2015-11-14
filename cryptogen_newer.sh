@@ -43,6 +43,7 @@ OTHER_EBUILDS=( vim links dhcpcd )
 
 ### Do not edit below this line. ###
 MAPPERROOT=/dev/mapper/root
+#should this be /mnt/gentoo???
 IFS="
 "
 OUTPUT=$(mktemp /tmp/cryptogen.out.XXXXX)
