@@ -89,7 +89,7 @@ echo "Starting STAGE 3 Install"
 echo "" 
 cd /mnt/gentoo 
 wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151105.tar.bz2
-tar xvjpf stage3-*.tar.bz2 
+tar xvjpf stage3-amd64-hardened-20151105.tar.bz2 
 echo "" 
 echo "Installing portage..." 
 cd /mnt/gentoo 
