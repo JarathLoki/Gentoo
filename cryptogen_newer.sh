@@ -301,10 +301,14 @@ function DownloadBase() {
   # Downloading latest stage3.
   # TODO: Check .DIGESTS file.
   #wget -P $NEWROOT "$AUTOBUILDS""$LATEST_STAGE3"
-  mkdir /mnt/gentoo
+  #mkdir /mnt/gentoo
   mkdir /mnt/gentoo/proc
   mkdir /mnt/gentoo/dev
   mkdir /mnt/gentoo/etc
+  mkdir /mnt/gentoo/usr
+  mkdir /mnt/gentoo/boot
+  mkdir /mnt/gentoo/tmp/
+  
   cd /mnt/gentoo
   wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
   # Unpacking stage3. Call the shell to try to untar the unit
