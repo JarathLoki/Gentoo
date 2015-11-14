@@ -304,6 +304,7 @@ function DownloadBase() {
   mkdir /mnt/gentoo
   mkdir /mnt/gentoo/proc
   mkdir /mnt/gentoo/dev
+  cd /mnt/gentoo
   wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
   # Unpacking stage3. Call the shell to try to untar the unit
   #/bin/sh -c tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
@@ -316,6 +317,7 @@ function DownloadBase() {
   # Downloading latest portage.
   wget -P $NEWROOT "$LATEST_PORTAGE"
   wget -P $NEWROOT "$LATEST_PORTAGE".md5sum
+  cd /mnt/gentoo
   tar xjf $NEWROOT/portage-latest.tar.bz2 -C $NEWROOT/usr | \
   dialog --infobox "Unpacking latest portage..." 3 30
   # Removing archives.
