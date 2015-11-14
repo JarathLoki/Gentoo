@@ -88,8 +88,8 @@ mount /dev/${HD_DEVICE}1 /mnt/gentoo/boot
 echo "Starting STAGE 3 Install" 
 echo "" 
 cd /mnt/gentoo 
-wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151105.tar.bz2
-tar xvjpf stage3-amd64-hardened-20151105.tar.bz2 
+wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
+tar xvjpf stage3-amd64-hardened-20151112.tar.bz2
 echo "" 
 echo "Installing portage..." 
 cd /mnt/gentoo 
@@ -97,7 +97,7 @@ wget http://gentoo.osuosl.org/snapshots/portage-latest.tar.bz2
 tar xvjf /mnt/gentoo/portage-latest.tar.bz2 -C /mnt/gentoo/usr 
 echo "Cleaning up..." 
 rm -f portage-latest.tar.bz2 
-rm -f stage3-amd64-hardened-20151105.tar.bz2
+rm -f stage3-amd64-hardened-20151112.tar.bz2
 echo "" 
 echo "Getting ready to CHROOT" 
 cp -L /etc/resolv.conf /mnt/gentoo/etc/resolv.conf 
