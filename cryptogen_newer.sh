@@ -304,6 +304,7 @@ function DownloadBase() {
   mkdir /mnt/gentoo
   mkdir /mnt/gentoo/proc
   mkdir /mnt/gentoo/dev
+  mkdir /mnt/gentoo/etc
   cd /mnt/gentoo
   wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
   # Unpacking stage3. Call the shell to try to untar the unit
