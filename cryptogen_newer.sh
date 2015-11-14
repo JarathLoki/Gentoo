@@ -310,9 +310,11 @@ function DownloadBase() {
   #/bin/sh -c tar xvjpf $NEWROOT/stage3-'*'.tar.bz2 -C $NEWROOT | dialog --infobox "Unpacking stage3..." 3 30
   tar xvjpf /mnt/gentoo/stage3-amd64-hardened-20151112.tar.bz2 -C /mnt/gentoo | dialog --infobox "Unpacking stage3..." 3 30
   # Mounting virtual filesystems
-  mount -t proc none /mnt/gentoo/proc
+  #mount -t proc none /mnt/gentoo/proc
+  #mount -o bind /dev /mnt/gentoo/dev
+  cp -L /etc/resolv.conf /mnt/gentoo/etc/resolv.conf
+  mount -t proc none /mnt/gentoo/proc 
   mount -o bind /dev /mnt/gentoo/dev
-  cp /etc/resolv.conf /mnt/gentoo/etc/resolv.conf
 
   # Downloading latest portage.
   wget -P $NEWROOT "$LATEST_PORTAGE"
