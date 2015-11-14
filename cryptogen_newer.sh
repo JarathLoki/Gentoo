@@ -312,7 +312,7 @@ function DownloadBase() {
   # Mounting virtual filesystems
   #mount -t proc none /mnt/gentoo/proc
   #mount -o bind /dev /mnt/gentoo/dev
-  cp -L /etc/resolv.conf /mnt/gentoo/etc/resolv.conf
+  cp /etc/resolv.conf /mnt/gentoo/etc/resolv.conf
   mount -t proc none /mnt/gentoo/proc 
   mount -o bind /dev /mnt/gentoo/dev
 
