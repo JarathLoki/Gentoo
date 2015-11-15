@@ -309,6 +309,7 @@ function DownloadBase() {
   mkdir /mnt/gentoo/boot/grub
   mkdir /mnt/gentoo/bin
   mkdir /mnt/gentoo/sbin
+  mkdir /mnt/gentoo/etc/conf.d/
   
   cd /mnt/gentoo
   wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
@@ -358,10 +359,12 @@ _EOF_
 
 # Modifying up /etc/fstab
 #changed from $NEWROOT/etc/fstab
-  sed -i -e "s:/dev/BOOT:$BOOT:" -e "s:/dev/ROOT:$MAPPERROOT:" -e "/\/dev\/SWAP/d" /mnt/gentoo/etc/fstab
+cp /etc/fstab > /mnt/gentoo/etc/fstab
+  #sed -i -e "s:/dev/BOOT:$BOOT:" -e "s:/dev/ROOT:$MAPPERROOT:" -e "/\/dev\/SWAP/d" /mnt/gentoo/etc/fstab
 
 # Setting hostname.
 #changed from $NEWROOT/etc/conf.d/hostname
+
   sed -ie s/localhost/$NEWHOSTNAME/ /mnt/gentoo/etc/conf.d/hostname
 
 # Executing a chrooted batch job.
