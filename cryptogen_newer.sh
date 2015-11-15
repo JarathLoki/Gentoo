@@ -4,7 +4,6 @@
 #  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  Modified for modern Gentoo systems by Jarath Loki c.2015
 #
-#####YO, /mnt/gentoo ISN'T BEING MADE!!!!
 LICENSE="Copyright (C) 2009 by Slawek Ligus. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -43,7 +42,6 @@ OTHER_EBUILDS=( vim links dhcpcd )
 
 ### Do not edit below this line. ###
 MAPPERROOT=/dev/mapper/root
-#should this be /mnt/gentoo???
 IFS="
 "
 OUTPUT=$(mktemp /tmp/cryptogen.out.XXXXX)
@@ -308,6 +306,9 @@ function DownloadBase() {
   mkdir /mnt/gentoo/usr
   mkdir /mnt/gentoo/boot
   mkdir /mnt/gentoo/tmp/
+  mkdir /mnt/gentoo/boot/grub
+  mkdir /mnt/gentoo/bin
+  mkdir /mnt/gentoo/sbin
   
   cd /mnt/gentoo
   wget http://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-hardened/stage3-amd64-hardened-20151112.tar.bz2
@@ -343,7 +344,8 @@ function BaseSetup() {
   mount $BOOT $NEWROOT/boot
 
   # Setting up make.conf
-  cat << _EOF_ > $NEWROOT/etc/make.conf
+  #changed from $NEWROOT/ect/make.conf
+  cat << _EOF_ > /mnt/gentoo/etc/make.conf
 CFLAGS="-O2 -pipe"
 # Use the same settings for both variables
 CXXFLAGS="\${CFLAGS}"
@@ -355,12 +357,15 @@ GENTOO_MIRRORS="$GENTOO_MIRRORS"
 _EOF_
 
 # Modifying up /etc/fstab
-  sed -i -e "s:/dev/BOOT:$BOOT:" -e "s:/dev/ROOT:$MAPPERROOT:" -e "/\/dev\/SWAP/d" $NEWROOT/etc/fstab
+#changed from $NEWROOT/etc/fstab
+  sed -i -e "s:/dev/BOOT:$BOOT:" -e "s:/dev/ROOT:$MAPPERROOT:" -e "/\/dev\/SWAP/d" /mnt/gentoo/etc/fstab
 
 # Setting hostname.
-  sed -ie s/localhost/$NEWHOSTNAME/ $NEWROOT/etc/conf.d/hostname
+#changed from $NEWROOT/etc/conf.d/hostname
+  sed -ie s/localhost/$NEWHOSTNAME/ /mnt/gentoo/etc/conf.d/hostname
 
 # Executing a chrooted batch job.
+touch $NEWROOT/tmp/batch.sh
 cat << _EOF_ > $NEWROOT/tmp/batch.sh
 #!/bin/bash
 env-update
@@ -390,7 +395,7 @@ _EOF_
 }
 
 function InstallBootloader() {
-  # Installing bootloader
+  # Installing bootloader WARNING!!!!!!!! The wildcard is broken!
   ln $NEWROOT/boot/kernel-genkernel-* $NEWROOT/boot/cryptkernel
   ln $NEWROOT/boot/initramfs-genkernel-* $NEWROOT/boot/cryptramfs
 
@@ -424,6 +429,7 @@ function InstallBootloader() {
   dialog --menu "Where do you want to install GRUB?" 15 40 15 "${MENU_PARAMS[@]}" 2>$OUTPUT
   GRUB_PART=$(cat $OUTPUT)
 
+touch $NEWROOT/boot/grub/menu.lst
 cat << _EOF_ > $NEWROOT/boot/grub/menu.lst
 default 0
 timeout 3
