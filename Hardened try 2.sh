@@ -359,8 +359,40 @@ _EOF_
 
 # Modifying up /etc/fstab
 #changed from $NEWROOT/etc/fstab
-cp /etc/fstab /mnt/gentoo/etc/fstab
-  #sed -i -e "s:/dev/BOOT:$BOOT:" -e "s:/dev/ROOT:$MAPPERROOT:" -e "/\/dev\/SWAP/d" /mnt/gentoo/etc/fstab
+#cp /etc/fstab /mnt/gentoo/etc/fstab
+#  #sed -i -e "s:/dev/BOOT:$BOOT:" -e "s:/dev/ROOT:$MAPPERROOT:" -e "/\/dev\/SWAP/d" /mnt/gentoo/etc/fstab
+#GENERATE FSTAB 
+echo "# /etc/fstab: static file system information." > /mnt/gentoo/etc/fstab 
+echo "#" >> /mnt/gentoo/etc/fstab 
+echo "# noatime turns off atimes for increased performance (atimes normally aren't" >> /mnt/gentoo/etc/fstab 
+echo "# needed; notail increases performance of ReiserFS (at the expense of storage" >> /mnt/gentoo/etc/fstab 
+echo "# efficiency).  It's safe to drop the noatime options if you want and to" >> /mnt/gentoo/etc/fstab 
+echo "# switch between notail / tail freely." >> /mnt/gentoo/etc/fstab 
+echo "#" >> /mnt/gentoo/etc/fstab 
+echo "# The root filesystem should have a pass number of either 0 or 1." >> /mnt/gentoo/etc/fstab 
+echo "# All other filesystems should have a pass number of 0 or greater than 1." >> /mnt/gentoo/etc/fstab 
+echo "#" >> /mnt/gentoo/etc/fstab 
+echo "# See the manpage fstab(5) for more information." >> /mnt/gentoo/etc/fstab 
+echo "#" >> /mnt/gentoo/etc/fstab 
+echo "" >> /mnt/gentoo/etc/fstab 
+echo "# <fs>                  <mountpoint>    <type>          <opts>          <dump/pass>" >> /mnt/gentoo/etc/fstab 
+echo "" >> /mnt/gentoo/etc/fstab 
+echo "# NOTE: If your BOOT partition is ReiserFS, add the notail option to opts." >> /mnt/gentoo/etc/fstab 
+echo "/dev/${HD_DEVICE}1               /boot           ext2            noauto,noatime  1 2" >> /mnt/gentoo/etc/fstab 
+echo "/dev/${HD_DEVICE}3               /               ext3            noatime         0 1" >> /mnt/gentoo/etc/fstab 
+echo "/dev/${HD_DEVICE}2               none            swap            sw              0 0" >> /mnt/gentoo/etc/fstab 
+echo "#/dev/cdroms/cdrom0      /mnt/cdrom      iso9660         noauto,ro       0 0" >> /mnt/gentoo/etc/fstab 
+echo "#/dev/fd0               /mnt/floppy     auto            noauto          0 0" >> /mnt/gentoo/etc/fstab 
+echo "" >> /mnt/gentoo/etc/fstab 
+echo "# NOTE: The next line is critical for boot!" >> /mnt/gentoo/etc/fstab 
+echo "proc                    /proc           proc            defaults        0 0" >> /mnt/gentoo/etc/fstab 
+echo "" >> /mnt/gentoo/etc/fstab 
+echo "# glibc 2.2 and above expects tmpfs to be mounted at /dev/shm for" >> /mnt/gentoo/etc/fstab 
+echo "# POSIX shared memory (shm_open, shm_unlink)." >> /mnt/gentoo/etc/fstab 
+echo "# (tmpfs is a dynamically expandable/shrinkable ramdisk, and will" >> /mnt/gentoo/etc/fstab 
+echo "#  use almost no memory if not populated with files)" >> /mnt/gentoo/etc/fstab 
+echo "shm                     /dev/shm        tmpfs           nodev,nosuid,noexec     0 0" >> /mnt/gentoo/etc/fstab 
+cat /mnt/gentoo/etc/fstab 
 
 # Setting hostname.
 #changed from $NEWROOT/etc/conf.d/hostname
